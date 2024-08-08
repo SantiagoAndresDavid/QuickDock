@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Incluir la librería QuickDock
+source /home/santiago/Documents/workspace/QuickDock/QuickDock.sh
+# Mostrar ayuda
+function show_help() {
+ echo "Usage: QuickDock <action> <image/container> [options]"
+    echo ""
+    echo "Commands:"
+    echo "  Delete Container <idContainer>  Deletes all containers except the specified one"
+    echo "  help                             Displays Dthis help"
+}
+
+# Verificar que hay al menos 1 argumento
+if [ $# -lt 1 ]; then
+    show_help
+    exit 1
+fi
+
+# Parsear el commands y subcommands
+commands=$1
+subcommands=$2
+
+case "$commands" in
+    Delete)
+        case "$subcommands" in
+            Container)
+                if [ -z "$3" ]; then
+                    echo "Error: You must provide the ID or name of the container you want to keep."
+                    exit 1
+                fi
+                delete_container "$3"
+                ;;
+            *)
+                echo "Error: Unknown Subcommands '$subcommands'"
+                show_help
+                exit 1
+                ;;
+        esac
+        ;;
+    DeleteAllExcept)
+    case "$subcommands" in
+        Container)
+            if [ -z "$3" ]; then
+                echo "Error: You must provide the ID or name of the container you want to keep."
+                exit 1
+            fi
+            delete_container "$3"
+            ;;
+        *)
+            echo "Error: Unknown Subcommands '$subcommands'"
+            show_help
+            exit 1
+            ;;
+    esac
+    ;;    
+    help)
+        show_help
+        ;;
+    *)
+        echo "Error: unknown commands '$commands'"
+        show_help
+        exit 1
+        ;;
+esac
+
