@@ -7,7 +7,8 @@ function show_help() {
  echo "Usage: QuickDock <action> <image/container> [options]"
     echo ""
     echo "Commands:"
-    echo "  Delete Container <idContainer>  Deletes all containers except the specified one"
+    echo "  Delete Container <idContainer>  Delete container"
+    echo "  DeleteAllExcept Container <idContainer>  Deletes all containers except the specified one"
     echo "  help                             Displays Dthis help"
 }
 
